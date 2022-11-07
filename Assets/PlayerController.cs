@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,7 +13,15 @@ public class PlayerController : MonoBehaviour
     private Animator myAnimator;
     private BoxCollider2D myFeet;
     private bool onGround;
-    
+
+    // changing variables demo code:
+    public InputField jumpSpeedI;
+    public InputField massI;
+    public InputField gravityI;
+    public InputField linearDragI;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +37,12 @@ public class PlayerController : MonoBehaviour
         Run();
         Jump();
         CheckGrounded();
+
+        // demo code
+        updateJumpSpeed();
+        updateGravity();
+        updateLinearDrag();
+        updateMass();
     }
 
     void Run()
@@ -66,5 +83,27 @@ public class PlayerController : MonoBehaviour
     void CheckGrounded()
     {
         onGround = myFeet.IsTouchingLayers(LayerMask.GetMask("Ground"));
+    }
+
+
+    // demo code:
+    public void updateJumpSpeed()
+    {
+        jumpSpeed = (jumpSpeedI.text == "" ? 1 : float.Parse(jumpSpeedI.text, CultureInfo.InvariantCulture.NumberFormat));
+    }
+
+    public void updateMass()
+    {
+        myRigidBody.mass = (massI.text == "" ? 1 : float.Parse(massI.text, CultureInfo.InvariantCulture.NumberFormat));
+    }
+
+    public void updateGravity()
+    {
+        myRigidBody.gravityScale = (gravityI.text == "" ? 1 : float.Parse(gravityI.text, CultureInfo.InvariantCulture.NumberFormat));
+    }
+
+    public void updateLinearDrag()
+    {
+        myRigidBody.drag = (linearDragI.text == "" ? 0 : float.Parse(linearDragI.text, CultureInfo.InvariantCulture.NumberFormat));
     }
 }
