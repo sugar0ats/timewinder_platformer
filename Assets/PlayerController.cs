@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         Run();
         Jump();
         CheckGrounded();
+        SwitchJumpFall();
     }
 
     void Run()
@@ -58,6 +59,8 @@ public class PlayerController : MonoBehaviour
     {
         if (onGround && Input.GetKeyDown(KeyCode.Space))
         {
+
+            myAnimator.SetBool("Jump", true);
             Vector2 jumpVel = new Vector2(0.0f, jumpSpeed);
             myRigidBody.velocity = Vector2.up * jumpVel;
         }
@@ -66,5 +69,25 @@ public class PlayerController : MonoBehaviour
     void CheckGrounded()
     {
         onGround = myFeet.IsTouchingLayers(LayerMask.GetMask("Ground"));
+    }
+
+    void SwitchJumpFall()
+    {
+        myAnimator.SetBool("Idle", false);
+        //myAnimator.SetBool("Run", false);
+        if(myAnimator.GetBool("Jump"))
+        {
+            if(myRigidBody.velocity.y < 0.0f)
+            {
+                myAnimator.SetBool("Jump", false);
+                myAnimator.SetBool("Fall", true);
+            }
+        }
+        else if (onGround)
+        {
+            myAnimator.SetBool("Fall", false);
+            myAnimator.SetBool("Idle", true);
+            //myAnimator.SetBool("Run", true);
+        }
     }
 }
