@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         Flip();
         Run();
         Jump();
-        Attack();
+        //Attack();
         CheckGrounded();
         SwitchJumpFall();
     }
@@ -67,13 +67,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Attack()
-    {
-        if (Input.GetButtonDown("Attack"))
-        {
-            myAnimator.SetTrigger("Attack");
-        }
-    }
+    //void Attack()
+    //{
+    //   if (Input.GetButtonDown("Attack"))
+    //    {
+    //        myAnimator.SetTrigger("Attack");
+    //    }
+    //}
 
     void CheckGrounded()
     {
