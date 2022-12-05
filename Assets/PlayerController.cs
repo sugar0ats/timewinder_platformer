@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
         Flip();
         Run();
         Jump();
+        Attack();
         CheckGrounded();
         SwitchJumpFall();
     }
@@ -66,6 +67,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Attack()
+    {
+        if (Input.GetButtonDown("Attack"))
+        {
+            myAnimator.SetTrigger("Attack");
+        }
+    }
+
     void CheckGrounded()
     {
         onGround = myFeet.IsTouchingLayers(LayerMask.GetMask("Ground"));
@@ -74,7 +83,6 @@ public class PlayerController : MonoBehaviour
     void SwitchJumpFall()
     {
         myAnimator.SetBool("Idle", false);
-        //myAnimator.SetBool("Run", false);
         if(myAnimator.GetBool("Jump"))
         {
             if(myRigidBody.velocity.y < 0.0f)
@@ -87,7 +95,6 @@ public class PlayerController : MonoBehaviour
         {
             myAnimator.SetBool("Fall", false);
             myAnimator.SetBool("Idle", true);
-            //myAnimator.SetBool("Run", true);
         }
     }
 }
