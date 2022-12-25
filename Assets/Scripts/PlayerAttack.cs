@@ -12,11 +12,14 @@ public class PlayerAttack : MonoBehaviour
     private Animator anim;
     private PolygonCollider2D coll2d;
 
+    private bool canAttack;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         coll2d = GetComponent<PolygonCollider2D>();
+        canAttack = true;
     }
 
     // Update is called once per frame
@@ -27,10 +30,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (Input.GetButtonDown("Attack"))
+        if (canAttack && Input.GetButtonDown("Attack"))
         {
             //coll2d.enabled = true;
+            canAttack = false;
             anim.SetTrigger("Attack");
+            Debug.Log("attack triggered, value of attack trigger is " + anim.GetBool("Attack"));
             StartCoroutine(StartAttack());
         }
     }
@@ -46,13 +51,16 @@ public class PlayerAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         coll2d.enabled = false ;
+        Debug.Log("attack trigger value is " + anim.GetBool("Attack"));
+        canAttack = true;
+        //anim.ResetTrigger("Attack");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy") )
         {
-            other.GetComponent<EnemyBat>().TakeDamage(damage);
+            other.GetComponent<Enemy>().TakeDamage(damage);
         }
     }
 }
