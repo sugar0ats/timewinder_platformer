@@ -12,11 +12,14 @@ public class Enemy : MonoBehaviour
     public float flashTime;
     public GameObject bloodEffect;
 
+    public PlayerHealth playerHealth;
+
     // Start is called before the first frame update
     public void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         originalColor = sr.color;
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -44,5 +47,19 @@ public class Enemy : MonoBehaviour
     void ResetColor()
     {
         sr.color = originalColor;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("this works?");
+        
+        if (other.gameObject.CompareTag("Player") && other.GetType().ToString() == "UnityEngine.CapsuleCollider2D")
+        {
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+                Debug.Log("Took damage, current player health is " + playerHealth.GetHealth());
+            }
+        }
     }
 }

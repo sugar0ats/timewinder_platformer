@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 251066442229814767}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9165049514260981157}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MovePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9165049514294178264}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RightUpPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 9165049515850183975}
   - component: {fileID: 9165049515850183971}
   - component: {fileID: 9165049515850183968}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -165,10 +165,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1026625415
-  m_SortingLayer: 3
+  m_SortingLayerID: -679634525
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 8647823593821616703, guid: d476b10205628e049b6cb4e76be570cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &9165049515850183975
@@ -208,10 +208,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.030154765, y: -0.060953498}
+  m_Offset: {x: 0.03880608, y: -0.05749297}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -222,7 +222,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.44906056, y: 0.3598354}
+  m_Size: {x: 0.32793975, y: 0.28370237}
   m_EdgeRadius: 0
 --- !u!114 &9165049515850183968
 MonoBehaviour:
@@ -237,9 +237,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2
-  damage: 0
+  damage: 1
   flashTime: 0.2
   bloodEffect: {fileID: 8899625991397318747, guid: 6aa8940c38de9c046808e120211ca1db, type: 3}
+  playerHealth: {fileID: 0}
   speed: 2
   startWaitTime: 1
   movePosition: {fileID: 9165049514260981157}
@@ -254,7 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9165049515971259086}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftDownPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}

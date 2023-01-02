@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Animator myAnimator;
     private BoxCollider2D myFeet;
     private bool onGround;
+
+    public PhysicsMaterial2D frictionlessBoy;
     
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,8 @@ public class PlayerController : MonoBehaviour
         myRigidBody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         myFeet = GetComponent<BoxCollider2D>(); // get the player's feet. duh.
+        frictionlessBoy = new PhysicsMaterial2D();
+
     }
 
     // Update is called once per frame
@@ -64,7 +68,14 @@ public class PlayerController : MonoBehaviour
             myAnimator.SetBool("Jump", true);
             Vector2 jumpVel = new Vector2(0.0f, jumpSpeed);
             myRigidBody.velocity = Vector2.up * jumpVel;
-        }
+            //myRigidBody.sharedMaterial = frictionlessBoy;
+            //myRigidBody.sharedMaterial.friction = 0;
+            //Debug.Log("material friction is " + myRigidBody.sharedMaterial.friction);
+        } 
+        //{
+        //    myRigidBody.sharedMaterial = frictionlessBoy;
+        //    //Debug.Log("material friction is " + myRigidBody.sharedMaterial.friction);
+        //}
     }
 
     //void Attack()
