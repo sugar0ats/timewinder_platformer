@@ -28,11 +28,22 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem impactDust;
     private bool wasOnGround;
+
+    public float acceleration;
+    public float deceleration;
+    public float velPower; 
+
+    public float frictionAmount;
+
+    public float gravityScale;
+
+    public float fallGravityMultiplier;
     
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
+        myRigidBody.gravityScale = gravityScale;
         myAnimator = GetComponent<Animator>();
         myFeet = GetComponent<BoxCollider2D>(); // get the player's feet. duh.
         frictionlessBoy = new PhysicsMaterial2D();
@@ -58,13 +69,30 @@ public class PlayerController : MonoBehaviour
     void Run()
     {
         float moveDir = (Mathf.Abs(Input.GetAxis("Horizontal")) > runDeadband ? Input.GetAxis("Horizontal") : 0);
-        Vector2 playerVel = new Vector2(moveDir * runSpeed, myRigidBody.velocity.y);
-        myRigidBody.velocity = playerVel;
-        bool hasXVel = Mathf.Abs(myRigidBody.velocity.x) > 5;
+        
+        float targetSpeed = moveDir * runSpeed;
+        float speedDiff = targetSpeed - myRigidBody.velocity.x; // if negative, we want to get slower. if positive, we want to get faster.
+        float accelRate = (Mathf.Abs(targetSpeed) > runDeadband ? acceleration : deceleration); // if target speed is positive or negative (left or right)
+        float movementForce = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff); // faster velocities mean more acceleration
+        
+        myRigidBody.AddForce(movementForce * Vector2.right);
+
+        bool hasXVel = Mathf.Abs(myRigidBody.velocity.x) > runDeadband;
         myAnimator.SetBool("Run", hasXVel);
+
+        ApplyFriction();
 
         CreateDust();
     }
+
+    void ApplyFriction() {
+        if (onGround && Input.GetAxis("Horizontal") == 0) {
+
+        }
+        float frictionForce = Mathf.Min(Mathf.Abs(frictionAmount), Mathf.Abs(myRigidBody.velocity.x)); // obtain correct force, whether it be the predetermined value for friction or the velocity of the player (why the player?)
+        frictionForce *= Mathf.Sign(myRigidBody.velocity.x); // get correct sign
+        myRigidBody.AddForce(-frictionForce * Vector2.right, ForceMode2D.Impulse); // force is added over a period of time, impulse is instant- like if we want to simulate friction
+    }   // friction force goes in the opposite direction of the player to make them stop and feel less slippery
 
     void Flip()
     {
@@ -84,10 +112,32 @@ public class PlayerController : MonoBehaviour
     }
 
     void Jump()
-    {
-
+    { 
+        checkHangTimeJumpBuffer();
         
+        if (hangCounter > 0 && jumpBufferCount >= 0)
+        {
+            jumpBufferCount = 0;
+            myAnimator.SetBool("Jump", true);
+            Vector2 jumpVel = new Vector2(0.0f, jumpSpeed);
+            myRigidBody.velocity = Vector2.up * jumpVel;
+        } 
 
+       ApplyFallGravity();
+
+        if (Input.GetKeyUp(KeyCode.Space) && myRigidBody.velocity.y > 0.3f) {
+            myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, myRigidBody.velocity.y * shortJumpMultiplier);
+        }
+        
+       
+    }
+
+    void ApplyFallGravity() {
+        myRigidBody.gravityScale = (myRigidBody.velocity.y < 0.0f ? gravityScale * fallGravityMultiplier : gravityScale);
+    }
+
+    void checkHangTimeJumpBuffer() {
+        // hangtime and jump buffer checks
         if (onGround) {
             hangCounter = hangTime;
         } else {
@@ -100,22 +150,6 @@ public class PlayerController : MonoBehaviour
             jumpBufferCount -= Time.deltaTime;
         }
 
-        if (hangCounter > 0 && jumpBufferCount >= 0)
-        {
-            jumpBufferCount = 0;
-            myAnimator.SetBool("Jump", true);
-            Vector2 jumpVel = new Vector2(0.0f, jumpSpeed);
-            myRigidBody.velocity = Vector2.up * jumpVel;
-            //myRigidBody.sharedMaterial = frictionlessBoy;
-            //myRigidBody.sharedMaterial.friction = 0;
-            //Debug.Log("material friction is " + myRigidBody.sharedMaterial.friction);
-        } 
-
-        if (Input.GetKeyUp(KeyCode.Space) && myRigidBody.velocity.y > 0.3) {
-            myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, myRigidBody.velocity.y * shortJumpMultiplier);
-        }
-        
-       
     }
 
     void CheckGrounded()
@@ -126,9 +160,9 @@ public class PlayerController : MonoBehaviour
     void SwitchJumpFall()
     {
         myAnimator.SetBool("Idle", false);
-        if(myAnimator.GetBool("Jump"))
+        if(myAnimator.GetBool("Jump")) // if jump is true
         {
-            if(myRigidBody.velocity.y < 0.0f)
+            if(myRigidBody.velocity.y < 0.0f) // the character is falling rn
             {
                 myAnimator.SetBool("Jump", false);
                 myAnimator.SetBool("Fall", true);

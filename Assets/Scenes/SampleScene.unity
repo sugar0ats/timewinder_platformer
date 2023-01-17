@@ -2915,7 +2915,7 @@ MonoBehaviour:
   upperRightLimit: {fileID: 1405143564}
   aheadValue: 3
   aheadSpeed: 0
-  smoothingDeadband: 0
+  smoothingDeadband: 2.5
 --- !u!4 &501760355
 Transform:
   m_ObjectHideFlags: 0
@@ -23689,8 +23689,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c76aceed5dacde45b3d076aa9afc467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 30
-  runSpeed: 8
+  jumpSpeed: 27
+  runSpeed: 9
   frictionlessBoy: {fileID: 0}
   hangTime: 0.2
   jumpBufferLength: 0.3
@@ -23698,6 +23698,12 @@ MonoBehaviour:
   shortJumpMultiplier: 0.4
   runDeadband: 0.25
   impactDust: {fileID: 1171694115}
+  acceleration: 13
+  deceleration: 16
+  velPower: 0.96
+  frictionAmount: 0.22
+  gravityScale: 9
+  fallGravityMultiplier: 2
 --- !u!1 &1849730271
 GameObject:
   m_ObjectHideFlags: 0
