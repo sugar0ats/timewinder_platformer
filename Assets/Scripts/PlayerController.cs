@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
     public float jumpCutMultiplier;
     
+   [SerializeField] private AudioSource playerRunSFX;
+   [SerializeField] private AudioSource playerJumpSFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +70,12 @@ public class PlayerController : MonoBehaviour
         SwitchJumpFall();
         CreateImpactDust(); // i feel bad calling this every frame...
         wasOnGround = onGround; // records previous frame's 
+
+        // if (myAnimator.GetBool("Jump")) {
+        //     playerJumpSFX.Play();
+        // } else {
+        //     playerJumpSFX.Pause();
+        // }
     }
 
     void Update() {
@@ -76,15 +84,6 @@ public class PlayerController : MonoBehaviour
 
         jumpKeyDown = Input.GetKeyDown(KeyCode.Space);
         jumpKeyUp = Input.GetKeyUp(KeyCode.Space);
-
-        // if (Input.GetKeyUp(KeyCode.Space)) {
-        //     jumpKeyUp = true;
-        // } else if(Input.GetKeyDown(KeyCode.Space)) {
-        //     jumpKeyUp = false;
-        // }
-
-        Debug.Log("jump key down is " + jumpKeyDown);
-        Debug.Log("jump key up is " + jumpKeyUp);
         
         checkHangTimeJumpBuffer();
 
@@ -145,8 +144,10 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCount = 0;
             myAnimator.SetBool("Jump", true);
-
+            
             myRigidBody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+
+            //playerJumpSFX.Play();
         } 
 
        ApplyFallGravity();
