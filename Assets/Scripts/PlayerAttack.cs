@@ -14,6 +14,8 @@ public class PlayerAttack : MonoBehaviour
 
     private bool canAttack;
 
+    [SerializeField] private AudioSource shingSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,7 @@ public class PlayerAttack : MonoBehaviour
             //coll2d.enabled = true;
             canAttack = false;
             anim.SetTrigger("Attack");
+            shingSFX.Play();
             Debug.Log("attack triggered, value of attack trigger is " + anim.GetBool("Attack"));
             StartCoroutine(StartAttack());
         }

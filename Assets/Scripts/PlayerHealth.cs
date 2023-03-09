@@ -17,6 +17,8 @@ public class PlayerHealth : MonoBehaviour
 
     private bool invulnerable;
 
+    [SerializeField] private AudioSource deathSFX;
+
     void Start()
     {
         myRenderer = GetComponent<Renderer>();
@@ -41,6 +43,7 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0)
         {
             anim.SetTrigger("Death");
+            deathSFX.Play();
             invulnerable = true;
             Invoke("DestroyPlayer", dieTime);
             

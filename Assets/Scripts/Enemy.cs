@@ -12,7 +12,11 @@ public class Enemy : MonoBehaviour
     public float flashTime;
     public GameObject bloodEffect;
 
+    public GameObject deathExplosion; // DEATH EXPLOSION!!
+
     public PlayerHealth playerHealth;
+
+    [SerializeField] private AudioSource enemyHurtSFX;
 
     // Start is called before the first frame update
     public void Start()
@@ -28,6 +32,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            Instantiate(deathExplosion, transform.position, Quaternion.identity);
         }
     }
 
@@ -35,7 +40,10 @@ public class Enemy : MonoBehaviour
     {
         health -= damage;
         FlashColor(flashTime);
-        Instantiate(bloodEffect, transform.position, Quaternion.identity);
+        enemyHurtSFX.Play();
+        if (health > 0) {
+            Instantiate(bloodEffect, transform.position, Quaternion.identity);
+        }
     }
 
     void FlashColor(float time)
