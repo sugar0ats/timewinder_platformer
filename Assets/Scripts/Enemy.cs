@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     public PlayerHealth playerHealth;
 
     [SerializeField] private AudioSource enemyHurtSFX;
+    [SerializeField] private AudioSource playerWinSFX;
 
     // Start is called before the first frame update
     public void Start()
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour
         FlashColor(flashTime);
         enemyHurtSFX.Play();
         if (health > 0) {
+            playerWinSFX.Play();
             Instantiate(bloodEffect, transform.position, Quaternion.identity);
         }
     }

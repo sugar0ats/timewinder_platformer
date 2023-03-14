@@ -24133,9 +24133,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a71eed46af3e4c44ca519c7ee512ad8f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4c247e11661134569814b39593b975b1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.486
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -29353,6 +29353,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1065044407028252880, guid: 3426497926ab25e4dbaff661f8a0c5d4, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1a46631981d9e4f80baf1de5a8b06651, type: 3}
     - target: {fileID: 4524589348185512628, guid: 3426497926ab25e4dbaff661f8a0c5d4, type: 3}
       propertyPath: m_Name
       value: Bat
