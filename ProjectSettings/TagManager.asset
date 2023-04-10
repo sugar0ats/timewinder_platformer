@@ -17,7 +17,7 @@ TagManager:
   - Player
   - Enemy
   - 
-  - 
+  - TriggerBox
   - 
   - 
   - 
@@ -53,4 +53,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 3615332771
+    locked: 0
+  - name: Item
+    uniqueID: 2772237795
     locked: 0
