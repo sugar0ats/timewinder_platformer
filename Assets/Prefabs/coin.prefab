@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8599625208795681488}
   - component: {fileID: 8599625208795681489}
   - component: {fileID: 8599625208795681490}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8599625209466360869}
   - component: {fileID: 8599625209466360868}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: TriggerBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
